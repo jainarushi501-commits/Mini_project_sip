@@ -1,0 +1,50 @@
+{
+  "version": "1.0-uncalibrated-defaults",
+  "calibrated": false,
+  "thresholds": {
+    "copy_move": 0.6,
+    "tamper": 0.55,
+    "ai": 0.6
+  },
+  "weights": {
+    "tamper_core": {
+      "ela": 0.45,
+      "noise": 0.35,
+      "edge": 0.2
+    },
+    "tamper": {
+      "ela": 0.3,
+      "noise": 0.25,
+      "edge": 0.15,
+      "copy_move": 0.3
+    },
+    "ai_core": {
+      "fft": 0.4,
+      "freq": 0.3,
+      "stats": 0.3
+    },
+    "ai": {
+      "fft": 0.3,
+      "freq": 0.25,
+      "noise_low": 0.2,
+      "stats": 0.25
+    }
+  },
+  "scales": {
+    "ela_cv": 1.5,
+    "ela_abnormal_ratio": 0.1,
+    "noise_cv": 1.5,
+    "noise_ref_std": 4.0,
+    "edge_cv": 1.5,
+    "edge_broken": 0.3,
+    "copy_move_inliers": 20,
+    "fft_peak_z_low": 3.0,
+    "fft_peak_z_high": 8.0,
+    "freq_log_low": 1.5,
+    "freq_log_high": 3.5,
+    "stats_uniformity_low": 0.1,
+    "stats_uniformity_high": 0.25,
+    "stats_entropy_max": 7.5,
+    "stats_sharpness_ref": 500.0
+  }
+}

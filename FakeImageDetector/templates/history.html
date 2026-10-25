@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}History{% endblock %}
+{% block content %}
+<section class="section"><div class="container">
+  <h1 class="mb-3">Analysis history</h1>
+  {% if not items %}<div class="glass p-4 text-secondary">No analyses yet. <a href="{{ url_for('detect') }}">Analyze an image</a>.</div>
+  {% else %}
+  <div class="glass p-3 table-responsive"><table class="table align-middle mb-0">
+    <thead><tr><th></th><th>File</th><th>Prediction</th><th>Time</th><th>Date</th><th></th></tr></thead>
+    <tbody>{% for r in items %}<tr>
+      <td><img src="{{ url_for('result_file', rid=r.id, name='original.jpg') }}" alt="" width="56" class="rounded"></td>
+      <td class="text-break">{{ r.image.filename }}</td>
+      <td class="v-{{ r.decision.label }} fw-semibold">{{ r.decision.display }}</td>
+      <td>{{ r.processing_time_s }} s</td><td>{{ r.created }}</td>
+      <td><a class="btn btn-sm btn-ghost" href="{{ url_for('result', rid=r.id) }}">Open</a></td></tr>{% endfor %}</tbody></table></div>
+  {% endif %}
+</div></section>
+{% endblock %}

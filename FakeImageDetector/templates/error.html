@@ -1,0 +1,4 @@
+{% extends "base.html" %}
+{% block content %}<section class="section"><div class="container text-center">
+  <h1 class="display-3 fw-bold">{{ code }}</h1><p class="text-secondary fs-5">{{ msg }}</p>
+  <a class="btn btn-glow" href="{{ url_for('index') }}">Back to home</a></div></section>{% endblock %}

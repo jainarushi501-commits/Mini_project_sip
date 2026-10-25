@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}About{% endblock %}
+{% block content %}
+<section class="section"><div class="container" style="max-width:900px">
+  <h1 class="mb-4">About this project</h1>
+  {% for t,d in [
+   ('Digital image forensics','The study of an image\'s pixels, compression history and statistics to find traces of editing or synthesis, without relying on trained models.'),
+   ('ELA','The image is re-saved as JPEG at quality 90 and compared to itself. Regions with a different compression history respond differently. Weak when the whole image was recompressed or resized.'),
+   ('Noise analysis','Residual = image minus a Gaussian blur. Block-wise noise levels should be similar across a camera photo; spliced content can differ. Denoising and strong content changes also affect it.'),
+   ('Edge analysis','Canny, Sobel and Laplacian measure edge density, continuity and broken edges. Pasted objects can leave unnatural edge patterns.'),
+   ('Copy-move detection','SIFT keypoints are matched against each other with FLANN and the Lowe ratio test. RANSAC checks that matches share one geometric transformation. Repeated textures can cause false alarms.'),
+   ('FFT analysis','The 2-D Fourier spectrum reveals energy distribution and periodic peaks. Up-sampling in image generators can leave regular patterns, but JPEG blocks and sharp edges do too.'),
+   ('Rule engine','Scores in the range 0 to 1 are combined with weights and compared with thresholds stored in thresholds.json. Order: copy-move, then ELA+noise+edge, then FFT+frequency+statistics, otherwise authentic.'),
+  ] %}
+  <div class="glass p-4 mb-3"><h5>{{ t }}</h5><p class="mb-0 text-secondary">{{ d }}</p></div>
+  {% endfor %}
+  <div class="glass p-4"><h5>Limitations</h5>
+    <ul class="text-secondary mb-0">
+      <li>No machine learning is used, so detecting modern AI-generated images with hand-made features is unreliable.</li>
+      <li>Social media and messaging apps recompress images, which weakens most forensic traces.</li>
+      <li>The default thresholds are uncalibrated. Use the calibration script and report the measured accuracy.</li>
+      <li>The confidence value is a rule margin, not a probability. "Likely authentic" never proves authenticity.</li>
+    </ul></div>
+</div></section>
+{% endblock %}

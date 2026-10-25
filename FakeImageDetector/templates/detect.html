@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Detector{% endblock %}
+{% block content %}
+<section class="section"><div class="container" style="max-width:820px">
+  <h1 class="mb-1">Image detector</h1>
+  <p class="text-secondary">Allowed: {{ exts }}. Maximum {{ max_mb }} MB. Uploaded files are deleted right after analysis.</p>
+  <div class="glass p-4">
+    <div id="drop" class="dropzone" tabindex="0" role="button" aria-label="Choose or drop an image">
+      <i class="bi bi-cloud-arrow-up"></i>
+      <div class="fs-5 mt-2">Drag and drop an image here</div>
+      <div class="text-secondary">or</div>
+      <button type="button" class="btn btn-ghost mt-2" id="browse">Browse image</button>
+      <input type="file" id="file" accept=".jpg,.jpeg,.png,.webp,.bmp,image/*" hidden>
+    </div>
+    <div id="previewBox" class="text-center mt-4" hidden>
+      <img id="preview" alt="Selected image preview">
+      <div id="fname" class="text-secondary mt-2"></div>
+    </div>
+    <div id="err" class="alert alert-danger mt-3" role="alert" hidden></div>
+    <div id="prog" class="mt-4" hidden>
+      <div class="d-flex justify-content-between mb-1"><span id="stage"><span class="spinner"></span> Uploading...</span><span id="pct">0%</span></div>
+      <div class="progress" role="progressbar" aria-label="Progress"><div id="bar" class="progress-bar" style="width:0%"></div></div>
+    </div>
+    <div class="text-end mt-4"><button id="go" class="btn btn-glow" disabled><i class="bi bi-lightning-charge"></i> Analyze image</button></div>
+  </div>
+</div></section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/detect.js') }}"></script>{% endblock %}
