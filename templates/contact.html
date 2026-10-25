@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Contact{% endblock %}
+{% block content %}
+<section class="section"><div class="container" style="max-width:640px">
+  <h1 class="mb-3">Contact</h1>
+  <div class="glass p-4">
+    <div id="msg" class="alert d-none" role="alert"></div>
+    <div class="mb-3"><label class="form-label" for="name">Name</label><input class="form-control" id="name" maxlength="100"></div>
+    <div class="mb-3"><label class="form-label" for="email">Email</label><input class="form-control" id="email" type="email" maxlength="150"></div>
+    <div class="mb-3"><label class="form-label" for="message">Message</label><textarea class="form-control" id="message" rows="5" maxlength="2000"></textarea></div>
+    <button class="btn btn-glow" id="send">Send message</button>
+  </div>
+</div></section>
+{% endblock %}
+{% block scripts %}
+<script>
+document.getElementById("send").addEventListener("click", async () => {
+  const box = document.getElementById("msg"), g = (i) => document.getElementById(i).value;
+  const r = await fetch("/api/contact", {method: "POST", headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({name: g("name"), email: g("email"), message: g("message")})});
+  const d = await r.json().catch(() => ({}));
+  box.className = "alert " + (r.ok ? "alert-success" : "alert-danger");
+  box.textContent = r.ok ? "Thanks, your message was saved." : (d.error || "Could not send the message.");
+});
+</script>
+{% endblock %}

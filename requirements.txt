@@ -1,0 +1,8 @@
+Flask>=3.0,<4
+gunicorn>=22.0
+numpy>=1.26,<3
+opencv-python-headless>=4.10.0.84
+Pillow>=10.4
+scipy>=1.13
+matplotlib>=3.9
+reportlab>=4.2

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero"><div class="container">
+  <div class="row align-items-center g-5">
+    <div class="col-lg-7 reveal">
+      <h1>Check whether an image was <span>edited or generated</span>.</h1>
+      <p class="lead-muted fs-5 mt-3">Upload a photo and get a transparent forensic breakdown: error levels, noise, edges, duplicated regions and frequency patterns. Every number comes from classical image processing, not a trained model.</p>
+      <div class="d-flex flex-wrap gap-3 mt-4">
+        <a class="btn btn-glow btn-lg" href="{{ url_for('detect') }}"><i class="bi bi-upload"></i> Upload an image</a>
+        <a class="btn btn-ghost btn-lg" href="{{ url_for('about') }}">How it works</a>
+      </div>
+    </div>
+    <div class="col-lg-5"><div class="glass p-4">
+      <div class="fw-semibold mb-3">Three possible outcomes</div>
+      <div class="score-row"><span class="lbl v-REAL">LIKELY AUTHENTIC</span><span class="text-secondary">no rule fired</span></div>
+      <div class="score-row"><span class="lbl v-TAMPERED">TAMPERED IMAGE</span><span class="text-secondary">copy-move, ELA, noise, edges</span></div>
+      <div class="score-row"><span class="lbl v-AI">AI GENERATED</span><span class="text-secondary">FFT, frequency, statistics</span></div>
+      <div class="note mt-3">The rules are experimental heuristics. Calibrate them on your own dataset before trusting the output.</div>
+    </div></div>
+  </div>
+</div></section>
+
+<section class="section"><div class="container">
+  <h2 class="mb-4">Features</h2>
+  <div class="row g-4">
+    {% for icon,t,d in [('bi-layers','Error Level Analysis','Recompresses at JPEG quality 90 and maps uneven error levels.'),('bi-soundwave','Noise analysis','Residual noise per 32 px block shows regions that do not match.'),('bi-bounding-box','Edge analysis','Canny, Sobel and Laplacian measure edge density and continuity.'),('bi-copy','Copy-move detection','SIFT + FLANN + ratio test + RANSAC find duplicated regions.'),('bi-graph-up','FFT analysis','Spectrum peaks and energy ratios expose periodic artefacts.'),('bi-file-earmark-pdf','PDF report','Download every score, image and piece of evidence.')] %}
+    <div class="col-md-6 col-lg-4"><div class="glass feature"><i class="bi {{ icon }}"></i><h5 class="mt-2">{{ t }}</h5><p class="mb-0 text-secondary">{{ d }}</p></div></div>
+    {% endfor %}
+  </div>
+</div></section>
+
+<section class="section"><div class="container">
+  <h2 class="mb-4">How it works</h2>
+  <div class="row g-4">
+    {% for t,d in [('Upload','Drop a JPEG, PNG, WebP or BMP. It is validated and the original is never modified.'),('Preprocess','Resize, remove alpha, then enhance a copy for edge and SIFT analysis.'),('Analyse','Six forensic modules run and each produces measured scores.'),('Decide','A configurable rule engine compares scores with thresholds from thresholds.json.')] %}
+    <div class="col-md-6 col-lg-3"><div class="glass feature"><span class="step-n">{{ loop.index }}</span><h5 class="mt-3">{{ t }}</h5><p class="mb-0 text-secondary">{{ d }}</p></div></div>
+    {% endfor %}
+  </div>
+</div></section>
+
+<section class="section"><div class="container">
+  <h2 class="mb-3">Technologies</h2>
+  {% for t in ['Python','Flask','OpenCV','NumPy','SciPy','scikit-image','Pillow','Matplotlib','ReportLab','Bootstrap 5','Chart.js'] %}<span class="chip">{{ t }}</span>{% endfor %}
+</div></section>
+{% endblock %}
